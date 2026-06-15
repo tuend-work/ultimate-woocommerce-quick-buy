@@ -241,7 +241,7 @@ if ( ! class_exists( 'Uwc_Github_Updater' ) ) {
          */
         public static function render_update_button() {
             $plugin_file = __DIR__ . '/ultimate-woocommerce-quick-buy.php';
-            $version = '1.0.0';
+            $version = 'N/A';
             if ( file_exists( $plugin_file ) ) {
                 $data = get_plugin_data( $plugin_file );
                 $version = $data['Version'];
