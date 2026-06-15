@@ -807,7 +807,7 @@ if ( is_multisite() || in_array( 'woocommerce/woocommerce.php', apply_filters( '
                 global $quickbuy_settings;
                 wp_enqueue_style('ultimate-woocommerce-quick-buy-style', plugins_url('css/ultimate-woocommerce-quick-buy.css', __FILE__), array(), $this->_version, 'all');
                 wp_enqueue_script('jquery.validate', plugins_url('js/jquery.validate.min.js', __FILE__), array('jquery'), $this->_version, true);
-                wp_enqueue_script('ultimate-woocommerce-quick-buy-script', plugins_url('js/ultimate-woocommerce-quick-buy.js', __FILE__), array('jquery', 'wc-add-to-cart-variation'), $this->_version, true);
+                wp_enqueue_script('ultimate-woocommerce-quick-buy-script', plugins_url('js/ultimate-woocommerce-quick-buy.js', __FILE__), array('jquery'), $this->_version, true);
                 $array = array(
                     'ajaxurl' => admin_url('admin-ajax.php'),
                     'siteurl' => home_url(),
