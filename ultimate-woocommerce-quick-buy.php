@@ -1,7 +1,7 @@
 <?php
 /*
  * Plugin Name: Ultimate WooCommerce Quick Buy
- * Version: 1.0.0
+ * Version: 1.0.1
  * Description: Ultimate WooCommerce Quick Buy giúp khách hàng mua nhanh sản phẩm trực tiếp từ trang chi tiết hoặc danh mục dưới dạng popup tối ưu hóa.
  * Author: Nguyễn Đức Tuệ
  * Author URI: https://github.com/yourusername
@@ -17,7 +17,7 @@ if ( is_multisite() || in_array( 'woocommerce/woocommerce.php', apply_filters( '
         class Ultimate_WooCommerce_Quick_Buy
         {
             protected static $instance;
-            public $_version = '1.0.0';
+            public $_version = '1.0.1';
             public $_optionName = 'ultimate_quickbuy_options';
             public $_optionGroup = 'ultimate-quickbuy-options-group';
             public $_defaultOptions = array(

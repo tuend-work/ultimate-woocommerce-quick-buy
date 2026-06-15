@@ -57,7 +57,14 @@ if ( ! class_exists( 'Uwc_Github_Updater' ) ) {
             $request = wp_remote_get( $url, $args );
 
             if ( is_wp_error( $request ) ) {
-                return false;
+                return $request;
+            }
+
+            $code = wp_remote_retrieve_response_code( $request );
+            $message = wp_remote_retrieve_response_message( $request );
+
+            if ( $code !== 200 ) {
+                return new WP_Error( 'github_error', 'GitHub API trả về mã lỗi: ' . $code . ' (' . $message . ')' );
             }
 
             $body = wp_remote_retrieve_body( $request );
@@ -68,7 +75,7 @@ if ( ! class_exists( 'Uwc_Github_Updater' ) ) {
                 return $response;
             }
 
-            return false;
+            return new WP_Error( 'github_no_release', 'Không tìm thấy phiên bản phát hành (Release) nào trên GitHub cho repo này.' );
         }
 
         /**
@@ -81,7 +88,7 @@ if ( ! class_exists( 'Uwc_Github_Updater' ) ) {
 
             $release = $this->get_latest_github_release();
 
-            if ( $release ) {
+            if ( $release && ! is_wp_error( $release ) ) {
                 $github_version = ltrim( $release->tag_name, 'v' );
                 $local_version  = $this->plugin_data['Version'];
 
@@ -114,7 +121,7 @@ if ( ! class_exists( 'Uwc_Github_Updater' ) ) {
 
             $release = $this->get_latest_github_release();
 
-            if ( $release ) {
+            if ( $release && ! is_wp_error( $release ) ) {
                 $github_version = ltrim( $release->tag_name, 'v' );
 
                 $api_response = new stdClass();
@@ -171,8 +178,8 @@ if ( ! class_exists( 'Uwc_Github_Updater' ) ) {
 
             $release = $this->get_latest_github_release();
 
-            if ( ! $release ) {
-                wp_send_json_error( array( 'message' => 'Không thể kết nối tới GitHub hoặc không tìm thấy bản phát hành nào.' ) );
+            if ( is_wp_error( $release ) ) {
+                wp_send_json_error( array( 'message' => 'Lỗi kết nối GitHub: ' . $release->get_error_message() ) );
             }
 
             $github_version = ltrim( $release->tag_name, 'v' );
