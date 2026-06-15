@@ -240,7 +240,7 @@ if ( ! class_exists( 'Uwc_Github_Updater' ) ) {
          * Render Update Button HTML in Settings Page
          */
         public static function render_update_button() {
-            $plugin_file = dirname( __DIR__ ) . '/ultimate-woocommerce-quick-buy.php';
+            $plugin_file = __DIR__ . '/ultimate-woocommerce-quick-buy.php';
             $version = '1.0.0';
             if ( file_exists( $plugin_file ) ) {
                 $data = get_plugin_data( $plugin_file );
