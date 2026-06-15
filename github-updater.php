@@ -45,12 +45,9 @@ if ( ! class_exists( 'Uwc_Github_Updater' ) ) {
                 return $this->github_response;
             }
 
-            $url = "https://api.github.com/repos/{$this->username}/{$this->repository}/releases/latest";
+            // Fetch the raw main file from the main branch to check the version
+            $url = "https://raw.githubusercontent.com/{$this->username}/{$this->repository}/main/ultimate-woocommerce-quick-buy.php";
             $args = array(
-                'headers' => array(
-                    'Accept'     => 'application/vnd.github.v3+json',
-                    'User-Agent' => 'WordPress/' . get_bloginfo( 'version' ) . '; ' . get_bloginfo( 'url' )
-                ),
                 'timeout' => 10
             );
 
@@ -64,18 +61,26 @@ if ( ! class_exists( 'Uwc_Github_Updater' ) ) {
             $message = wp_remote_retrieve_response_message( $request );
 
             if ( $code !== 200 ) {
-                return new WP_Error( 'github_error', 'GitHub API trả về mã lỗi: ' . $code . ' (' . $message . ')' );
+                return new WP_Error( 'github_error', 'Không thể kết nối đến GitHub Raw (Mã lỗi: ' . $code . ' - ' . $message . '). Hãy đảm bảo kho lưu trữ ở chế độ Public.' );
             }
 
             $body = wp_remote_retrieve_body( $request );
-            $response = json_decode( $body );
-
-            if ( $response && isset( $response->tag_name ) ) {
+            
+            // Extract version from plugin headers
+            if ( preg_match( '/Version:\s*([0-9.-]+)/i', $body, $matches ) ) {
+                $version = trim( $matches[1] );
+                
+                // Construct mock release object pointing to the main branch ZIP
+                $response = new stdClass();
+                $response->tag_name = $version;
+                $response->zipball_url = "https://github.com/{$this->username}/{$this->repository}/archive/refs/heads/main.zip";
+                $response->body = "Cập nhật trực tiếp từ nhánh main trên GitHub.";
+                
                 $this->github_response = $response;
                 return $response;
             }
 
-            return new WP_Error( 'github_no_release', 'Không tìm thấy phiên bản phát hành (Release) nào trên GitHub cho repo này.' );
+            return new WP_Error( 'github_parse_error', 'Không thể đọc được phiên bản của plugin từ tệp tin trên GitHub.' );
         }
 
         /**
