@@ -1,0 +1,495 @@
+﻿/* 
+ * Style for Ultimate WooCommerce Quick Buy
+ * Custom Premium Design with Glassmorphism, Smooth Micro-animations, and Modern Form inputs
+ */
+
+/* Modal Container */
+.uwc-popup-quickbuy {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -45%) scale(0.95);
+    width: 95%;
+    max-width: 900px;
+    background: #ffffff;
+    border-radius: 24px;
+    box-shadow: 0 25px 50px -12px rgba(15, 23, 42, 0.25);
+    z-index: 100000;
+    opacity: 0;
+    visibility: hidden;
+    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s ease, visibility 0.3s ease;
+    overflow: hidden;
+}
+
+.uwc-popup-quickbuy.open {
+    opacity: 1;
+    visibility: visible;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+/* Modal Backdrop */
+.uwc-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(15, 23, 42, 0.4);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    z-index: 99999;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.uwc-modal-overlay.open {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Layout */
+.uwc-popup-inner {
+    display: flex;
+    flex-direction: column;
+    max-height: 90vh;
+}
+
+.uwc-popup-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 28px;
+    background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+    color: #ffffff;
+    font-weight: 600;
+    font-size: 1.2rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.uwc-popup-title span {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding-right: 20px;
+}
+
+.uwc-popup-close {
+    background: rgba(255, 255, 255, 0.1) !important;
+    border: none !important;
+    cursor: pointer !important;
+    padding: 0 !important;
+    width: 36px;
+    height: 36px;
+    border-radius: 50% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    color: #ffffff !important;
+    transition: all 0.2s ease !important;
+}
+
+.uwc-popup-close:hover {
+    background: rgba(255, 255, 255, 0.25) !important;
+    transform: rotate(90deg) scale(1.05);
+}
+
+.uwc-popup-close::before {
+    content: "\2715";
+    font-size: 1.1rem;
+    font-weight: bold;
+    display: block;
+}
+
+.uwc-popup-content {
+    display: grid;
+    grid-template-columns: 1fr 1.20fr;
+    overflow-y: auto;
+    background: #f8fafc;
+}
+
+@media (max-width: 768px) {
+    .uwc-popup-content {
+        grid-template-columns: 1fr;
+    }
+    .popup_quickbuy_hidden_mobile {
+        display: none !important;
+    }
+}
+
+/* Left Column: Product Summary */
+.uwc-popup-content-left {
+    padding: 30px;
+    background: #ffffff;
+    border-right: 1px solid #e2e8f0;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.uwc-popup-prod {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+.uwc-popup-img {
+    flex-shrink: 0;
+}
+
+.uwc-popup-img img {
+    width: 90px;
+    height: 90px;
+    object-fit: cover;
+    border-radius: 16px;
+    border: 1px solid #f1f5f9;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+.uwc-popup-info {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.uwc-popup-info .uwc_title {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #0f172a;
+    line-height: 1.4;
+}
+
+.uwc-popup-info .uwc_price {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #ef4444;
+}
+
+.uwc-popup-content-desc {
+    padding: 16px 20px;
+    background: #eff6ff;
+    border-left: 4px solid #3b82f6;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    color: #1e3a8a;
+    line-height: 1.6;
+}
+
+/* Right Column: Billing & Customer Details Form */
+.uwc-popup-content-right {
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+}
+
+.popup-customer-info-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #1e293b;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #f1f5f9;
+    padding-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.popup-customer-info-group {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+    margin-bottom: 16px;
+}
+
+.popup-customer-info-group.popup-customer-info-radio {
+    display: flex;
+    gap: 24px;
+    margin-bottom: 20px;
+}
+
+.popup-customer-info-radio label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    color: #475569;
+    transition: color 0.2s ease;
+}
+
+.popup-customer-info-radio label:hover {
+    color: #1e293b;
+}
+
+.popup-customer-info-radio input[type="radio"] {
+    width: 20px;
+    height: 20px;
+    accent-color: #3b82f6;
+    cursor: pointer;
+}
+
+/* Fields Grid Layout */
+.popup-customer-info-item-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+.popup-customer-info-item-3-13,
+.popup-customer-info-item-3-23,
+.popup-customer-info-item-3-33 {
+    display: block;
+    width: 100%;
+}
+
+@media (max-width: 480px) {
+    .popup-customer-info-item-2 {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Styling Forms */
+.uwc_custom_info input[type="text"],
+.uwc_custom_info select,
+.uwc_custom_info textarea {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1.5px solid #cbd5e1;
+    border-radius: 12px;
+    font-size: 0.95rem;
+    background: #ffffff;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.02);
+    transition: all 0.25s ease;
+    color: #0f172a;
+    outline: none;
+    box-sizing: border-box;
+}
+
+.uwc_custom_info input[type="text"]:focus,
+.uwc_custom_info select:focus,
+.uwc_custom_info textarea:focus {
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.12);
+}
+
+.uwc_custom_info textarea {
+    resize: vertical;
+    min-height: 80px;
+}
+
+/* Address Fields in 3 Grid Columns */
+.popup-customer-info-group .popup-customer-info-item-3-13,
+.popup-customer-info-group .popup-customer-info-item-3-23,
+.popup-customer-info-group .popup-customer-info-item-3-33 {
+    width: 100%;
+}
+
+/* Shipping and Totals */
+.popup_quickbuy_shipping {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 20px;
+    background: #f1f5f9;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: #475569;
+}
+
+.popup_quickbuy_shipping_calc {
+    font-weight: 700;
+    color: #0f172a;
+}
+
+.popup_quickbuy_shipping_calc ul#shipping_method {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    text-align: right;
+}
+
+.popup_quickbuy_shipping_calc ul#shipping_method li {
+    margin-bottom: 4px;
+}
+
+/* Coupon Area */
+.customer_coupon_wrap {
+    background: #f8fafc;
+    border: 1px dashed #cbd5e1;
+    border-radius: 16px;
+    padding: 18px;
+    margin-bottom: 16px;
+}
+
+.customer_coupon_field {
+    display: flex;
+    gap: 12px;
+}
+
+.popup-customer-info-item-2-3 {
+    flex-grow: 1;
+}
+
+.popup-customer-info-item-2-1 button.apply_coupon {
+    padding: 12px 20px;
+    background: #0f172a;
+    color: #ffffff;
+    font-weight: 600;
+    border-radius: 12px;
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s ease;
+    white-space: nowrap;
+}
+
+.popup-customer-info-item-2-1 button.apply_coupon:hover {
+    background: #1e293b;
+}
+
+.customer_coupon_field_mess {
+    margin-top: 8px;
+    font-size: 0.9rem;
+}
+
+.quickbuy_coupon_mess {
+    color: #16a34a;
+    font-weight: 500;
+}
+
+.quickbuy_coupon_mess_amout {
+    display: none;
+    font-weight: 600;
+    color: #ef4444;
+    margin-top: 4px;
+}
+
+/* Total Section */
+.popup_quickbuy_total {
+    border-top: 2px solid #f1f5f9;
+    padding-top: 16px;
+    margin-top: 8px;
+}
+
+.popup_quickbuy_total_calc {
+    font-size: 1.35rem;
+    font-weight: 800;
+    color: #ef4444;
+}
+
+/* Button & Loading indicators */
+.uwc-order-btn {
+    width: 100%;
+    padding: 16px;
+    background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+    color: #ffffff;
+    border: none;
+    border-radius: 14px;
+    font-weight: 700;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 14px 0 rgba(37, 99, 235, 0.3);
+}
+
+.uwc-order-btn:hover {
+    background: linear-gradient(135deg, #1d4ed8 0%, #1e40af 100%);
+    box-shadow: 0 6px 20px 0 rgba(37, 99, 235, 0.4);
+    transform: translateY(-1px);
+}
+
+.uwc-order-btn:active {
+    transform: translateY(0);
+}
+
+.uwc-order-btn.loading {
+    background: #94a3b8 !important;
+    box-shadow: none !important;
+    pointer-events: none;
+    color: transparent;
+    position: relative;
+}
+
+.uwc-order-btn.loading::after {
+    content: "";
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    top: 50%;
+    left: 50%;
+    margin-top: -12px;
+    margin-left: -12px;
+    border: 3px solid rgba(255,255,255,0.3);
+    border-radius: 50%;
+    border-top-color: #ffffff;
+    animation: uwc-spin 0.8s ease-in-out infinite;
+}
+
+@keyframes uwc-spin {
+    to { transform: rotate(360deg); }
+}
+
+/* Error/Success Messages */
+.uwc_quickbuy_mess {
+    font-size: 0.95rem;
+    font-weight: 500;
+    text-align: center;
+    border-radius: 12px;
+    margin-top: 8px;
+}
+
+.uwc_quickbuy_mess.error {
+    background: #fef2f2;
+    border: 1px solid #fca5a5;
+    color: #b91c1c;
+    padding: 12px;
+}
+
+.popup-message.success {
+    text-align: center;
+    padding: 30px 20px;
+}
+
+/* Floating labels / styling placeholder */
+::placeholder {
+    color: #94a3b8;
+    opacity: 1;
+}
+
+/* Custom Buy Now Button style in product single details */
+.uwc_buy_now_style {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 14px 28px;
+    background: linear-gradient(135deg, #ff4e50 0%, #f9d423 100%);
+    color: #ffffff !important;
+    border-radius: 14px;
+    font-weight: 700;
+    text-decoration: none !important;
+    box-shadow: 0 4px 15px rgba(255, 78, 80, 0.3);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border: none;
+    cursor: pointer;
+    text-align: center;
+}
+
+.uwc_buy_now_style:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(255, 78, 80, 0.45);
+}
+
+.uwc_buy_now_style strong {
+    font-size: 1.15rem;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    display: block;
+}
+
+.uwc_buy_now_style span {
+    font-size: 0.8rem;
+    opacity: 0.9;
+    font-weight: 500;
+    margin-top: 2px;
+}
