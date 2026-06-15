@@ -1329,3 +1329,58 @@ if(!function_exists('uwc_custom_checkout_field_display_admin_order_meta_gender')
     }
 }
 
+/**
+ * Register shortcodes for Flatsome UX Builder
+ */
+add_action( 'ux_builder_setup', 'uwc_quickbuy_ux_builder_integration' );
+function uwc_quickbuy_ux_builder_integration() {
+    if ( ! function_exists( 'add_ux_builder_shortcode' ) ) {
+        return;
+    }
+
+    add_ux_builder_shortcode( 'uwc_quickbuy', array(
+        'name'      => __( 'Quick Buy Button', 'ultimate-woocommerce-quick-buy' ),
+        'category'  => __( 'WooCommerce', 'ultimate-woocommerce-quick-buy' ),
+        'priority'  => 10,
+        'options'   => array(
+            'id' => array(
+                'type'    => 'textfield',
+                'heading' => __( 'Product ID', 'ultimate-woocommerce-quick-buy' ),
+                'default' => '',
+                'description' => __( 'Nhập ID sản phẩm cần mua nhanh. Để trống nếu dùng trong trang chi tiết sản phẩm.', 'ultimate-woocommerce-quick-buy' ),
+            ),
+            'button_text1' => array(
+                'type'    => 'textfield',
+                'heading' => __( 'Chữ nút chính', 'ultimate-woocommerce-quick-buy' ),
+                'default' => '',
+                'placeholder' => __( 'Ví dụ: Mua ngay', 'ultimate-woocommerce-quick-buy' ),
+            ),
+            'button_text2' => array(
+                'type'    => 'textfield',
+                'heading' => __( 'Chữ nút phụ', 'ultimate-woocommerce-quick-buy' ),
+                'default' => '',
+                'placeholder' => __( 'Ví dụ: Giao hàng tận nơi', 'ultimate-woocommerce-quick-buy' ),
+            ),
+            'small_link' => array(
+                'type'    => 'checkbox',
+                'heading' => __( 'Dạng Link chữ nhỏ', 'ultimate-woocommerce-quick-buy' ),
+                'default' => 'false',
+            ),
+        ),
+    ) );
+
+    add_ux_builder_shortcode( 'uwc_quickbuy_form', array(
+        'name'      => __( 'Quick Buy Form', 'ultimate-woocommerce-quick-buy' ),
+        'category'  => __( 'WooCommerce', 'ultimate-woocommerce-quick-buy' ),
+        'priority'  => 11,
+        'options'   => array(
+            'id' => array(
+                'type'    => 'textfield',
+                'heading' => __( 'Product ID', 'ultimate-woocommerce-quick-buy' ),
+                'default' => '',
+                'description' => __( 'Nhập ID sản phẩm hiển thị form mua hàng nhanh trực tiếp.', 'ultimate-woocommerce-quick-buy' ),
+            ),
+        ),
+    ) );
+}
+
