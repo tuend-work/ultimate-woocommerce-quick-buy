@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Javascript for Ultimate WooCommerce Quick Buy
  * Custom Premium Logic with Smooth UI Transitions and Responsive AJAX Actions
  */
@@ -54,6 +54,9 @@
 
         function openModal(modal) {
             closeAllModals();
+            if (!modal.parent().is('body')) {
+                $('body').append(modal);
+            }
             modal.addClass('open');
             overlay.addClass('open');
             $('html, body').addClass('uwc-modal-open');
