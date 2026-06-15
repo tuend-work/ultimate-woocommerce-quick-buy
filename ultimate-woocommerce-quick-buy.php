@@ -94,13 +94,7 @@ if ( is_multisite() || in_array( 'woocommerce/woocommerce.php', apply_filters( '
 
                 }
 
-                /*add_action( 'admin_notices', array($this, 'admin_notices') );
-                if( is_admin() ) {
-                    add_action('in_plugin_update_message-' . UWC_QB_BASENAME, array($this,'uwc_modify_plugin_update_message'), 10, 2 );
-                }
-
-                include_once ('includes/updates.php');
-				*/
+       
 
             }
 
@@ -1087,6 +1081,11 @@ if ( is_multisite() || in_array( 'woocommerce/woocommerce.php', apply_filters( '
                         <?php do_settings_sections('ultimate-quickbuy-options-group', 'default'); ?>
                         <?php submit_button(); ?>
                     </form>
+                    <?php 
+                    if ( class_exists( 'Uwc_Github_Updater' ) ) {
+                        Uwc_Github_Updater::render_update_button(); 
+                    }
+                    ?>
                 </div>
                 <?php
             }
@@ -1271,6 +1270,10 @@ if ( is_multisite() || in_array( 'woocommerce/woocommerce.php', apply_filters( '
         }
 
         $uwc_quickbuy = new Ultimate_WooCommerce_Quick_Buy();
+
+        // Include and initialize GitHub Updater
+        require_once( plugin_dir_path( __FILE__ ) . 'github-updater.php' );
+        new Uwc_Github_Updater( __FILE__ );
     }
 }
 
